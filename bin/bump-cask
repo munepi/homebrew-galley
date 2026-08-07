@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# SPDX-License-Identifier: BSD-3-Clause
+#
+# bump-cask VERSION — point Casks/galley.rb at a published Galley release.
+#
+# Downloads GalleyPDF_<VERSION>.dmg from the GitHub release, computes its
+# SHA-256, and rewrites the version/sha256 lines of the cask.
+
+set -eu
+
+VERSION=${1:-}
+if [ -z "$VERSION" ]; then
+    echo "Usage: $(basename "$0") VERSION   (e.g. $(basename "$0") 0.5)" >&2
+    exit 1
+fi
+VERSION=${VERSION#v}
+
+ROOT=$(cd -P "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+CASK="$ROOT/Casks/galley.rb"
+DMG="GalleyPDF_${VERSION}.dmg"
+URL="https://github.com/munepi/Galley/releases/download/v${VERSION}/${DMG}"
+
+TMPDIR_=$(mktemp -d)
+trap 'rm -rf "$TMPDIR_"' EXIT
+
+echo "Downloading $URL ..."
+curl -fsSL --retry 3 -o "$TMPDIR_/$DMG" "$URL"
+
+SHA=$(shasum -a 256 "$TMPDIR_/$DMG" | cut -d' ' -f1)
+echo "sha256 $SHA"
+
+/usr/bin/sed -i '' \
+    -e "s|^  version \".*\"$|  version \"${VERSION}\"|" \
+    -e "s|^  sha256 \".*\"$|  sha256 \"${SHA}\"|" \
+    "$CASK"
+
+echo "Updated $CASK"
+git -C "$ROOT" --no-pager diff -- "$CASK" || true
+
+cat <<EOS
+
+Next steps:
+  brew style --fix Casks/galley.rb
+  brew audit --cask --online --new Casks/galley.rb
+  git commit -am "galley ${VERSION}"
+EOS
