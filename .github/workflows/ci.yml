@@ -15,8 +15,19 @@ jobs:
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@master
 
+      # `brew audit` takes cask names, not paths, so this checkout has to sit
+      # in Homebrew's Taps directory before it can be audited. Copying it there
+      # avoids `brew tap`'s remote-URL check, which rejects a local path once
+      # the tap is also known from GitHub.
+      - name: Install this checkout as a tap
+        run: |
+          TAP="$(brew --repository)/Library/Taps/munepi/homebrew-galley"
+          mkdir -p "$(dirname "$TAP")"
+          cp -R "$GITHUB_WORKSPACE" "$TAP"
+          brew tap
+
       - name: Check cask style
-        run: brew style Casks/galley.rb
+        run: brew style munepi/galley
 
       - name: Audit cask
-        run: brew audit --cask --online Casks/galley.rb
+        run: brew audit --cask --online munepi/galley/galley
