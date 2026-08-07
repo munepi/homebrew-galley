@@ -17,9 +17,9 @@ cask "galley" do
   depends_on macos: :big_sur
 
   app "GalleyPDF.app"
-  # Shipped inside the bundle so that pkg/DMG and source installs get the same
-  # command; see galleypdf.bash in the Galley repository.
-  binary "#{appdir}/GalleyPDF.app/Contents/Resources/bin/galleypdf"
+  # Shipped inside the bundle so pkg/DMG and source installs get the same
+  # command; the emacsclient layout, built from Sources/GalleyPDFCLI.
+  binary "#{appdir}/GalleyPDF.app/Contents/MacOS/bin/galleypdf"
 
   zap trash: [
     "~/Library/Application Support/com.github.munepi.galley",

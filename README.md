@@ -20,7 +20,7 @@ galleypdf displayline -g 120 paper.pdf paper.tex
 ~~~
 
 `galleypdf` lives inside the app bundle at
-`GalleyPDF.app/Contents/Resources/bin/galleypdf`, so it behaves the same whether
+`GalleyPDF.app/Contents/MacOS/bin/galleypdf`, so it behaves the same whether
 you installed Galley through Homebrew, the `.pkg` installer, or a source build.
 
 ## Upgrade and uninstall
