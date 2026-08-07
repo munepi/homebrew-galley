@@ -3,18 +3,6 @@
 This repository contains the official cask for [Galley](https://github.com/munepi/Galley),
 a lightweight macOS PDF previewer with SyncTeX support.
 
-> [!NOTE]
-> Under construction — this tap goes live with Galley v0.4. Hang tight!
->
-> The cask here is ready except for the release checksum, which gets filled in
-> the moment v0.4 ships. That release also brings the `galleypdf` command:
-> a compiled front end, bundled inside the app, that opens PDFs, drives SyncTeX
-> forward search, and reloads the viewer straight from your shell or editor.
->
-> Until then, grab the signed and notarized `.dmg` or `.pkg` from
-> [Releases](https://github.com/munepi/Galley/releases). Watch or star
-> [munepi/Galley](https://github.com/munepi/Galley) to hear about it first.
-
 ## Install
 
 ~~~bash
@@ -33,7 +21,7 @@ galleypdf displayline -g 120 paper.pdf paper.tex
 
 `galleypdf` lives inside the app bundle at
 `GalleyPDF.app/Contents/MacOS/bin/galleypdf`, so it behaves the same whether
-you installed Galley through Homebrew, the `.pkg` installer, or a source build.
+you installed Galley through Homebrew, from the disk image, or from source.
 
 ## Upgrade and uninstall
 
