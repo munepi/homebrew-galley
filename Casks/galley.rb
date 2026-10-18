@@ -1,6 +1,6 @@
 cask "galley" do
-  version "0.7"
-  sha256 "bbec257c82ed2bea8dc87163686fab91bbaf26b89b848570ec27a6d7e84d6a4f"
+  version "0.8"
+  sha256 "9c712648897a8f6900129cab2eec81627b3589d426dcd18f59e89dfa39adb0a9"
 
   url "https://github.com/munepi/Galley/releases/download/v#{version}/GalleyPDF_#{version}.dmg"
   name "Galley"
@@ -14,7 +14,7 @@ cask "galley" do
   end
 
   auto_updates true
-  depends_on :macos
+  depends_on macos: :monterey
 
   app "GalleyPDF.app"
   # Shipped inside the bundle so pkg/DMG and source installs get the same
