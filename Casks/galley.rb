@@ -1,6 +1,6 @@
 cask "galley" do
-  version "0.9"
-  sha256 "fbed5945fead7925e40a436582bb8287469228e28765a3c18169d494c6b411ef"
+  version "0.10"
+  sha256 "be59307ac3449b4b17b232464adda0a2b2bedaf000c42ac35c949ad03e47ecbb"
 
   url "https://github.com/munepi/Galley/releases/download/v#{version}/GalleyPDF_#{version}.dmg"
   name "Galley"
